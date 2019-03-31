@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.six.crud.mapper.DemoLogMapper">
+  <resultMap id="BaseResultMap" type="com.six.crud.entity.DemoLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="u_id" jdbcType="VARCHAR" property="uId" />
+    <result column="opt_type" jdbcType="CHAR" property="optType" />
+    <result column="extra_info" jdbcType="VARCHAR" property="extraInfo" />
+    <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, u_id, opt_type, extra_info, is_deleted, creator, modifier, gmt_created, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mybatis_demo_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mybatis_demo_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.six.crud.entity.DemoLog">
+    insert into mybatis_demo_log (id, u_id, opt_type, 
+      extra_info, is_deleted, creator, 
+      modifier, gmt_created, gmt_modified
+      )
+    values (#{id,jdbcType=BIGINT}, #{uId,jdbcType=VARCHAR}, #{optType,jdbcType=CHAR}, 
+      #{extraInfo,jdbcType=VARCHAR}, #{isDeleted,jdbcType=CHAR}, #{creator,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.six.crud.entity.DemoLog">
+    insert into mybatis_demo_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="optType != null">
+        opt_type,
+      </if>
+      <if test="extraInfo != null">
+        extra_info,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="optType != null">
+        #{optType,jdbcType=CHAR},
+      </if>
+      <if test="extraInfo != null">
+        #{extraInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.six.crud.entity.DemoLog">
+    update mybatis_demo_log
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="optType != null">
+        opt_type = #{optType,jdbcType=CHAR},
+      </if>
+      <if test="extraInfo != null">
+        extra_info = #{extraInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null">
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.six.crud.entity.DemoLog">
+    update mybatis_demo_log
+    set u_id = #{uId,jdbcType=VARCHAR},
+      opt_type = #{optType,jdbcType=CHAR},
+      extra_info = #{extraInfo,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=CHAR},
+      creator = #{creator,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!-- ######################## auto code  end###########################-->
+  <insert id="batchInsert">
+    insert into mybatis_demo_log (u_id, opt_type)
+    values
+    <foreach collection="list" item="model" index="index" separator=",">
+      (#{model.uId}, #{model.optType})
+    </foreach>
+  </insert>
+
+  <select id="queryPage" resultMap="BaseResultMap">
+    select * from mybatis_demo_log
+  </select>
+
+  <select id="countTotal" resultType="java.lang.Integer">
+    select count(1) from mybatis_demo_log
+  </select>
+
+</mapper>
