@@ -5,11 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplusdemo.bean.User;
+import com.example.mybatisplusdemo.jvmext.JavaClassExecuter;
 import com.example.mybatisplusdemo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -67,6 +73,16 @@ public class CurdController {
                 .gt("age", 21);
         List<User> users = userMapper.selectList(queryWrapper);
         return users;
+    }
+
+    //动态加载class文件
+    @RequestMapping("/loadClass")
+    public String loadClass(@RequestParam("file") MultipartFile file) throws Exception {
+        InputStream is = file.getInputStream();
+        byte[] b = new byte[is.available()];
+        is.read(b);
+        is.close();
+        return JavaClassExecuter.execute(b);
     }
 
 }
