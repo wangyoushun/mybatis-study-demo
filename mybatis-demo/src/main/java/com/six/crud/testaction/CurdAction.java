@@ -1,6 +1,7 @@
 package com.six.crud.testaction;
 
 import com.six.crud.entity.DemoClassroom;
+import com.six.crud.entity.DemoLog;
 import com.six.crud.entity.DemoStudent;
 import com.six.crud.mapper.*;
 import org.apache.ibatis.io.Resources;
@@ -47,6 +48,13 @@ public class CurdAction {
                 System.out.println(room.getName()+";  "+student);
             }
         }
+    }
+
+    @Test
+    public void queryTest(){
+        final DemoLogMapper mapper = sqlSession.getMapper(DemoLogMapper.class);
+        DemoLog demoLog = mapper.selectByPrimaryKey(1L);
+        System.out.println(demoLog);
     }
 
     @Test
