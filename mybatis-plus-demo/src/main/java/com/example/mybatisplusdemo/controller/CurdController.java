@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplusdemo.bean.User;
 import com.example.mybatisplusdemo.jvmext.JavaClassExecuter;
 import com.example.mybatisplusdemo.mapper.UserMapper;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,9 +25,13 @@ public class CurdController {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private SqlSession sqlSession;
+
     @RequestMapping("/list")
     public List<User> list(){
-        return userMapper.selectList(null);
+//        return userMapper.selectList(null);
+        return sqlSession.selectList("com.six.crud.mapper.UserMapper.selectByxml");
     }
 
     @RequestMapping("/crud")

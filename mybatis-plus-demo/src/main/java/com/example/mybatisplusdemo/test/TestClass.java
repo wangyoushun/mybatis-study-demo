@@ -20,5 +20,7 @@ public class TestClass {
         user.setEmail("e2323");
         userMapper.insert(user);
         System.out.println(userMapper.selectList(null));
+
+
     }
 }
