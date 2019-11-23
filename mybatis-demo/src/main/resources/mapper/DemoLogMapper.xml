@@ -156,4 +156,17 @@
     select count(1) from mybatis_demo_log
   </select>
 
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(1) from mybatis_demo_log
+    <where>
+      <if test="condition!=null">
+        <if test="condition.creator!=null">
+          and creator = #{condition.creator}
+        </if>
+
+      </if>
+
+    </where>
+  </select>
+
 </mapper>
